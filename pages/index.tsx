@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { JobsResponse, Job } from '../types/Jobs';
 import { filterJob } from '../utils/filterJob';
+import { JobList } from '../components/JobList';
 
 export default function Home({
   jobsResponse,
@@ -19,19 +20,7 @@ export default function Home({
       </Head>
       <main>
         <h1 className="text-3xl font-bold underline">Job Board!</h1>
-        <ul className="flex flex-col gap-4 p-2">
-          {jobsResponse.jobs.map((job) => (
-            <li key={job.jobId} className="border-2 rounded-md border-black">
-              <h2 className="font-bold">{job.jobTitle}</h2>
-              <p>{job.companyName}</p>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: job.jobDescription,
-                }}
-              ></div>
-            </li>
-          ))}
-        </ul>
+        <JobList jobs={jobsResponse.jobs} />
       </main>
     </>
   );
