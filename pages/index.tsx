@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { JobsResponse, Job } from '../types/Jobs';
 import { filterJob } from '../utils/filterJob';
-import { JobList } from '../components/JobList';
 import { Header } from '../components/Header';
 import { ResultsSection } from '../components/ResultsSection';
 
@@ -22,9 +21,7 @@ export default function Home({
       </Head>
       <Header />
       <main className="p-2 max-w-6xl mx-auto">
-        <ResultsSection>
-          <JobList jobs={jobsResponse.jobs} />
-        </ResultsSection>
+        <ResultsSection jobs={jobsResponse.jobs} />
       </main>
     </>
   );
