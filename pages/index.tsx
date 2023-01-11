@@ -48,7 +48,9 @@ export const getServerSideProps: GetServerSideProps<{
   });
   const parsedResponse: JobsResponse = await rawResponse.json();
   const jobsResponse = {
-    jobs: parsedResponse.jobs.map((job) => filterJobResponse(job) as Job), // remove unnecessary keys, avoid https://nextjs.org/docs/messages/large-page-data
+    jobs: parsedResponse.jobs
+      .slice(0, 10) // only first 10 results requirement
+      .map((job) => filterJobResponse(job) as Job), // remove unnecessary keys, avoid https://nextjs.org/docs/messages/large-page-data
     totalJobs: parsedResponse.totalJobs,
     remainingJobs: parsedResponse.remainingJobs,
   };

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Job } from '../types/Jobs';
 import { filterResults } from '../utils/filterResults';
-import { JobList } from './JobList';
+import { JobBoard } from './JobBoard';
 
 export function ResultsSection({ jobs }: { jobs: Job[] }) {
   const [only7Days, setOnly7Days] = useState(false);
@@ -21,12 +21,12 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-2xl font-bold capitalize">
-        Business Analyst Jobs ({filteredJobs.length})
+        Business Analyst Jobs - {filteredJobs.length} Jobs
       </h2>
       <div className="flex gap-2">
         <select
           className={[
-            company !== ''
+            company
               ? 'bg-blue-500 border-blue-500 text-white'
               : 'bg-white border-gray-400 text-blue-500',
             'rounded-md border p-2 font-bold transition-all',
@@ -64,7 +64,7 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
           Reset Filters
         </button>
       </div>
-      <JobList jobs={filteredJobs} />
+      <JobBoard jobs={filteredJobs} />
     </div>
   );
 }
