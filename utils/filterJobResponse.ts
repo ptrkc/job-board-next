@@ -14,7 +14,7 @@ const keysToKeep = {
   jobLevels: true,
 };
 
-export const filterJob = (fullJob: Record<string, any>) =>
+export const filterJobResponse = (fullJob: Record<string, any>) =>
   Object.keys(keysToKeep).reduce((obj, key) => {
     if (fullJob[key]) {
       return { ...obj, [key]: fullJob[key] };

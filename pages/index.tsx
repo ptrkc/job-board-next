@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { JobsResponse, Job } from '../types/Jobs';
-import { filterJob } from '../utils/filterJob';
+import { filterJobResponse } from '../utils/filterJobResponse';
 import { Header } from '../components/Header';
 import { ResultsSection } from '../components/ResultsSection';
 
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<{
   });
   const parsedResponse: JobsResponse = await rawResponse.json();
   const jobsResponse = {
-    jobs: parsedResponse.jobs.map((job) => filterJob(job) as Job), // remove unnecessary keys, avoid https://nextjs.org/docs/messages/large-page-data
+    jobs: parsedResponse.jobs.map((job) => filterJobResponse(job) as Job), // remove unnecessary keys, avoid https://nextjs.org/docs/messages/large-page-data
     totalJobs: parsedResponse.totalJobs,
     remainingJobs: parsedResponse.remainingJobs,
   };

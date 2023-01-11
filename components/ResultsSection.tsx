@@ -1,5 +1,6 @@
-import { useMemo, useReducer, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Job } from '../types/Jobs';
+import { filterResults } from '../utils/filterResults';
 import { JobList } from './JobList';
 
 export function ResultsSection({ jobs }: { jobs: Job[] }) {
@@ -10,6 +11,8 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
     [jobs]
   );
 
+  const filteredJobs = filterResults(jobs, only7Days, company);
+
   const resetFilters = () => {
     setOnly7Days(false);
     setCompany('');
@@ -17,7 +20,9 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-2xl font-bold capitalize">Business Analyst Jobs</h2>
+      <h2 className="text-2xl font-bold capitalize">
+        Business Analyst Jobs ({filteredJobs.length})
+      </h2>
       <div className="flex gap-2">
         <select
           className={[
@@ -31,7 +36,11 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
         >
           <option value="">Filter by company</option>
           {companiesList.map((companyName) => (
-            <option key={companyName} value={companyName}>
+            <option
+              className="bg-white text-black"
+              key={companyName}
+              value={companyName}
+            >
               {companyName}
             </option>
           ))}
@@ -48,13 +57,14 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
           Only last 7 days
         </button>
         <button
-          className="bg-white border-gray-400 text-blue-500 rounded-md border p-2 font-bold"
+          className="bg-white border-gray-400 text-blue-500 rounded-md border p-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200 transition-all"
           onClick={resetFilters}
+          disabled={!only7Days && !company}
         >
           Reset Filters
         </button>
       </div>
-      <JobList jobs={jobs} />
+      <JobList jobs={filteredJobs} />
     </div>
   );
 }
