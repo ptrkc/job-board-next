@@ -13,7 +13,7 @@
 //   "previousListingHashes": []
 // }
 
-export interface Jobs {
+export interface JobsResponse {
   jobs: Job[];
   totalJobs: number;
   remainingJobs: number;
@@ -36,8 +36,8 @@ export interface Job {
 }
 
 export enum JobLevel {
-  EntryLevel = "Entry Level",
-  JuniorLevel = "Junior Level",
-  MidLevel = "Mid Level",
-  SeniorLevel = "Senior Level",
+  EntryLevel = 'Entry Level',
+  JuniorLevel = 'Junior Level',
+  MidLevel = 'Mid Level',
+  SeniorLevel = 'Senior Level',
 }
