@@ -10,7 +10,7 @@ export function JobFullOverlay({
   closeOverlay: () => void;
 }) {
   return (
-    <div className="fixed top-0 right-0 left-0 bottom-0 overflow-auto bg-white p-4">
+    <div className="fixed top-0 right-0 left-0 bottom-0 overflow-auto bg-white p-4 overscroll-contain">
       <BackButton onClick={closeOverlay} />
       <JobFullContent job={job} />
       <BackButton onClick={closeOverlay} />
