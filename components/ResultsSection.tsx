@@ -20,10 +20,10 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-2xl font-bold capitalize">
+      <h2 className="text-xl sm:text-2xl font-bold capitalize">
         Business Analyst Jobs - {filteredJobs.length} Jobs
       </h2>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <select
           className={[
             company
@@ -45,24 +45,26 @@ export function ResultsSection({ jobs }: { jobs: Job[] }) {
             </option>
           ))}
         </select>
-        <button
-          className={[
-            only7Days
-              ? 'bg-blue-500 border-blue-500 text-white'
-              : 'bg-white border-gray-400 text-blue-500',
-            'rounded-md border p-2 font-bold transition-all',
-          ].join(' ')}
-          onClick={() => setOnly7Days(!only7Days)}
-        >
-          Only last 7 days
-        </button>
-        <button
-          className="bg-white border-gray-400 text-blue-500 rounded-md border p-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200 transition-all"
-          onClick={resetFilters}
-          disabled={!only7Days && !company}
-        >
-          Reset Filters
-        </button>
+        <div className="flex gap-2">
+          <button
+            className={[
+              only7Days
+                ? 'bg-blue-500 border-blue-500 text-white'
+                : 'bg-white border-gray-400 text-blue-500',
+              'w-full sm:w-auto rounded-md border p-2 font-bold transition-all',
+            ].join(' ')}
+            onClick={() => setOnly7Days(!only7Days)}
+          >
+            Only last 7 days
+          </button>
+          <button
+            className="w-full sm:w-auto bg-white border-gray-400 text-blue-500 rounded-md border p-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-200 disabled:border-gray-200 transition-all"
+            onClick={resetFilters}
+            disabled={!only7Days && !company}
+          >
+            Reset Filters
+          </button>
+        </div>
       </div>
       <JobBoard jobs={filteredJobs} />
     </div>

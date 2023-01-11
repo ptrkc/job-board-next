@@ -1,19 +1,24 @@
 import { Job } from '../types/Jobs';
 import { JobCard } from './JobCard';
 
-export function JobCardList({ jobs }: { jobs: Job[] }) {
-  if (!jobs.length) {
-    return (
-      <span className="text-xl mt-4">
-        No results, try resetting the filters.
-      </span>
-    );
-  }
-
+export function JobCardList({
+  jobs,
+  selectedJob,
+  setSelectedJob,
+}: {
+  jobs: Job[];
+  selectedJob?: Job;
+  setSelectedJob: (job: Job) => void;
+}) {
   return (
-    <ul className="flex flex-col gap-4 min-w-[300px]">
+    <ul className="flex flex-col gap-4 mx-auto max-w-lg w-full md:w-[270px] md:shrink-0">
       {jobs.map((job) => (
-        <JobCard key={job.jobId} job={job} />
+        <JobCard
+          setSelectedJob={setSelectedJob}
+          key={job.jobId}
+          job={job}
+          isSelected={selectedJob?.jobId === job.jobId}
+        />
       ))}
     </ul>
   );
