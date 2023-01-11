@@ -7,41 +7,33 @@ import { JobFullOverlay } from './JobFullOverlay';
 
 export function JobBoard({ jobs }: { jobs: Job[] }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const [selectedJob, setSelectedJob] = useState(isMobile ? null : jobs[0]);
+  const [selectedJob, setSelectedJob] = useState(jobs.length ? jobs[0] : null);
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isMobile && jobs.length) {
-      setSelectedJob(jobs[0]);
-    }
-  }, [isMobile, jobs]);
+  const selectJob = (job: Job) => {
+    setSelectedJob(job);
+    setIsOpen(true);
+  };
 
-  if (!jobs.length)
+  if (!jobs.length || !selectedJob)
     return (
       <span className="text-xl mt-4">
         No results, try resetting the filters.
       </span>
     );
 
-  if (!isMobile && selectedJob !== null) {
-    return (
-      <div className="flex gap-2 p-2">
-        <JobCardList
-          jobs={jobs}
-          setSelectedJob={setSelectedJob}
-          selectedJob={selectedJob}
-        />
-        <JobFullCard job={selectedJob} />
-      </div>
-    );
-  }
-
   return (
-    <div className="p-2">
-      <JobCardList jobs={jobs} setSelectedJob={setSelectedJob} />
-      {selectedJob && (
+    <div className="flex gap-2 p-2">
+      <JobCardList
+        jobs={jobs}
+        selectJob={selectJob}
+        selectedJob={selectedJob}
+      />
+      {!isMobile && <JobFullCard job={selectedJob} />}
+      {isMobile && isOpen && (
         <JobFullOverlay
           job={selectedJob}
-          closeOverlay={() => setSelectedJob(null)}
+          closeOverlay={() => setIsOpen(false)}
         />
       )}
     </div>

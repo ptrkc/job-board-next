@@ -3,13 +3,13 @@ import { Job } from '../types/Jobs';
 export function JobCard({
   job,
   isSelected,
-  setSelectedJob,
+  selectJob,
 }: {
   job: Job;
   isSelected: boolean;
-  setSelectedJob: (job: Job) => void;
+  selectJob: (job: Job) => void;
 }) {
-  const onClick = () => setSelectedJob(job);
+  const onClick = () => selectJob(job);
   return (
     <li
       className={[
