@@ -3,6 +3,8 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { JobsResponse, Job } from '../types/Jobs';
 import { filterJob } from '../utils/filterJob';
 import { JobList } from '../components/JobList';
+import { Header } from '../components/Header';
+import { ResultsSection } from '../components/ResultsSection';
 
 export default function Home({
   jobsResponse,
@@ -18,9 +20,11 @@ export default function Home({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1 className="text-3xl font-bold underline">Job Board!</h1>
-        <JobList jobs={jobsResponse.jobs} />
+      <Header />
+      <main className="p-2 max-w-6xl mx-auto">
+        <ResultsSection>
+          <JobList jobs={jobsResponse.jobs} />
+        </ResultsSection>
       </main>
     </>
   );
